@@ -104,7 +104,7 @@ header.scrolled {
 }
 
 .logo {
-    max-width: 200px;
+    max-width: 150px;
     padding: var(--spacing-xs);
 }
 
@@ -797,3 +797,4 @@ video::-webkit-media-controls-picture-in-picture-button {
     text-align: left;
   }
 }
+
