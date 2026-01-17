@@ -1,3 +1,5 @@
+
+
 /* CSS Reset */
 *, *::before, *::after {
     box-sizing: border-box;
@@ -21,41 +23,133 @@ input, button, textarea, select {
 
 /* CSS Variables */
 :root {
-    /* Colors */
-    --clr-primary: #002c39;
-    --clr-secondary: #015061;
-    --clr-accent: #00c18e;
-    --clr-text-dark: #002c39;
+    /* --- BRAND COLORS --- */
+    --clr-primary: #002c39;      /* Deep Navy */
+    --clr-secondary: #015061;    /* Teal Blue */
+    --clr-accent: #00c18e;       /* Cerulean/Mint Accent */
+    --clr-bg: #fff7f7;           /* Off-white Background */
+    
+    --clr-text-dark: var(--clr-primary);
     --clr-text-light: #fff7f7;
-    --clr-bg: #fff7f7;
+    --clr-text-muted: rgba(0, 44, 57, 0.7);
 
-    /* Spacing */
+    /* --- TYPOGRAPHY: FAMILIES --- */
+    /* Erbaum for Headers, Afacad for Body/Subtitles */
+    --ff-header: "Erbaum", system-ui, -apple-system, sans-serif;
+    --ff-body: "Afacad", system-ui, -apple-system, sans-serif;
+
+    /* --- TYPOGRAPHY: WEIGHTS --- */
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-bold: 700;
+    --fw-black: 800;
+
+    /* --- TYPOGRAPHY: SIZES (Fluid scale) --- */
+    --fs-title: 2.75rem;    /* Hero main title */
+    --fs-subtitle: 2.25rem; /* Hero sub / Section headers */
+    --fs-h1: 1.5rem;                        /* Sub-headings */
+    --fs-h2: 1.25rem;                         /* Small headers/Labels */
+    --fs-h3: 1.75rem; 
+    --fs-body: 1.15rem;                         /* Standard Paragraphs */
+    --fs-small: 1rem;                     /* Captions/Details */
+
+    /* --- SPACING SYSTEM --- */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 2rem;
     --spacing-lg: 4rem;
+    --spacing-xl: 6rem;
 
-    /* Typography */
-    --font-family-sans: 'Montserrat', system-ui, -apple-system, sans-serif;
-    --fs-body: 1rem;
-    --fs-h2: 1rem;
-    --fs-h1: 1.2rem;
-    --fs-subtitle: 1.6rem;
-    --fs-title: 2rem;
-    --font-weight-bold: 700;
+    /* --- GLOBAL TRANSITIONS --- */
+    --tr-main: 0.3s ease;
+    --tr-reveal: 0.8s ease-out;
+    --tr-delay-stagger: 0.2s;
+
+    /* --- LAYOUT TOKENS --- */
+    --container-max: 1000px;
+    --br-card: 0.6rem;
 }
 
 /* Global Layout System */
+/* Base body uses Body role */
 body {
-    font-family: var(--font-family-sans);
-    font-size: var(--fs-body);
-    color: var(--clr-text-dark);
-    background-color: var(--clr-bg);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    padding: 0;
+  font-family: var(--ff-body);
+  font-weight: var(--fw-body);
+  font-size: var(--fs-body);
+  color: var(--clr-text-dark);
+  background-color: var(--clr-bg);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 0;
 }
+
+/* Mapping base tags to your design tokens */
+h1 {
+    font-family: var(--ff-header);
+    font-size: var(--fs-h1);
+    font-weight: var(--fw-medium);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+}
+
+h2 {
+    font-family: var(--ff-header);
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-regular);
+    letter-spacing: 0.02em;
+    line-height: 1.25;
+}
+
+h3 {
+    font-family: var(--ff-header);
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-medium);
+    letter-spacing: 0.02em;
+    line-height: 1.25;
+}
+
+/* Role utilities – you will map these in HTML later */
+/* Utility Role Classes */
+.t-title {
+    font-family: var(--ff-body); /* Afacad based on your hero style */
+    font-size: var(--fs-title);
+    font-weight: var(--fw-regular);
+    line-height: 1.1;
+}
+
+.t-subtitle {
+    font-family: var(--ff-body);
+    font-size: var(--fs-subtitle);
+    font-weight: var(--fw-regular);
+    line-height: 1.2;
+}
+
+.t-h1 {
+    font-family: var(--ff-header); /* Erbaum */
+    font-size: var(--fs-h1);
+    font-weight: var(--fw-medium);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+}
+
+.t-h2 {
+    font-family: var(--ff-header); /* Erbaum */
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-regular);
+    letter-spacing: 0.02em;
+}
+
+.t-body {
+    font-family: var(--ff-body);
+    font-size: var(--fs-body);
+    font-weight: var(--fw-regular);
+    line-height: 1.5;
+}
+
+/* Optional: keep margins for structural elements */
+
+
 
 /* Page Wrapper */
 .page-wrapper {
@@ -104,7 +198,7 @@ header.scrolled {
 }
 
 .logo {
-    max-width: 100px;
+    max-width: 250px;
     padding: var(--spacing-xs);
 }
 
@@ -117,22 +211,11 @@ footer {
 }
 
 /* Typography Mapping */
-h1 {
-    font-size: var(--fs-title);
-    line-height: 1.1;
-    margin-bottom: var(--spacing-xs);
-    font-weight: var(--font-weight-bold);
-}
-
-h2 {
-    font-size: var(--fs-subtitle);
-    margin-bottom: var(--spacing-xs);
-    font-weight: var(--font-weight-bold);
-}
-
-p {
-    margin-bottom: var(--spacing-md);
-    max-width: 60ch;
+/* Base body uses Body role */
+body {
+  font-family: var(--ff-body);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-body-role);
 }
 
 /* Buttons (unused but ready) */
@@ -170,13 +253,15 @@ p {
 }
 
 /* Hero */
+
 #hero {
+    /* Keep your background and flex centering */
     background-image: linear-gradient(rgba(0, 44, 57, 0.6), rgba(0, 44, 57, 0.6)), url('ALPS BG.webp');
     background-size: cover;
     background-position: center;
-    padding-top: 170px;
-    padding-bottom: 0;
-    min-height: 60vh;
+    padding-top: 200px; /* Space for the fixed header */
+    padding-bottom: var(--spacing-lg);
+    max-height: 550px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -185,23 +270,34 @@ p {
     color: var(--clr-text-light);
 }
 
-#hero p {
-    margin-inline: auto;
+/* Remove #hero h1 specific styles and let .t-title handle it */
+#hero .t-title {
+    margin-bottom: var(--spacing-xl);
+    font-weight: var(--fw-regular); /* Default to regular, use .fw-bold for the second line */
 }
 
-#hero h1 {
-    font-weight: 400;
-    margin-bottom: var(--spacing-lg);
-}
-
-#hero h1 strong {
-    font-weight: 700;
-}
-
-.hero-subtitle {
-    font-size: var(--fs-subtitle);
-    font-weight: 400;
+#hero .t-subtitle {
     margin-bottom: 0;
+}
+
+/* Reset p margins for Hero description */
+#hero p.t-body {
+    margin-top: 0;
+    margin-bottom: var(--spacing-lg);
+    margin-inline: auto;
+    max-width: 80ch; /* Slightly wider for hero text than standard body p */
+}
+
+/* Subtitle star positioning */
+.hero-subtitle-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 0px;
+}
+
+.hero-star {
+    top: 0;
+    right: -12px; /* Pulls star slightly away from ALPS */
 }
 
 /* Gradient Text */
@@ -259,6 +355,7 @@ p {
 
 .banner-container {
     display: flex;
+    padding-top: var(--spacing-xs);
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -269,9 +366,9 @@ p {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    font-size: clamp(0.75rem, 1.5vw, 1rem); 
+    font-size: clamp(1rem, 1.5vw, 1.25rem); 
     letter-spacing: 0.01em; 
-    font-weight: var(--font-weight-bold);
+    font-weight: 700;
     text-align: center;
     width: 100%;
     max-width: 1000px;
@@ -304,8 +401,6 @@ p {
 
 .section-heading {
     color: var(--clr-text-dark);
-    font-size: var(--fs-subtitle);
-    font-weight: var(--font-weight-bold);
     margin-bottom: var(--spacing-md);
 }
 
@@ -322,25 +417,23 @@ p {
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
+    margin-top: 1%;
+    margin-left: 5%;
 }
 
 .what-we-do-text {
-    flex: 0 0 45%;
+    flex: 0 0 40%;
     text-align: left;
 }
 
 /* override heading color inside this section */
 #what-we-do .section-heading {
     color: var(--clr-text-light);
+    margin-bottom: var(--spacing-sm);
 }
 
-/* body text in What We Do */
-.video-caption {
-    font-size: 0.9rem;
-    margin-bottom: var(--spacing-sm);
-    max-width: 40ch;
+#what-we-do .t-body {
     color: var(--clr-text-light);
-    opacity: 0.95;
 }
 
 /* bullet list */
@@ -349,7 +442,6 @@ p {
     padding: 0;
     margin: 0 0 var(--spacing-md);
     max-width: 40ch;
-    font-size: 0.9rem;
 }
 
 .what-bullets li {
@@ -370,7 +462,7 @@ p {
 /* video side */
 .what-we-do-media {
     flex: 1;
-    max-width: 540px;
+    max-width: 700px;
     margin-inline: auto;
 }
 
@@ -499,6 +591,10 @@ video::-webkit-media-controls-picture-in-picture-button {
     justify-content: center;
 }
 
+.who-header .section-heading{
+    margin-bottom: var(--spacing-xs);
+}
+
 .who-container {
     width: 100%;
     max-width: 1000px; 
@@ -520,8 +616,8 @@ video::-webkit-media-controls-picture-in-picture-button {
     gap: 20px; 
     width: 100%;
     max-width: 850px;
-    margin-top: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
     justify-items: center;
 }
 
@@ -533,7 +629,6 @@ video::-webkit-media-controls-picture-in-picture-button {
 }
 
 .who-item p {
-    font-size: 0.9rem;
     max-width: 140px; 
     margin-inline: auto;
     line-height: 1.3;
@@ -551,7 +646,7 @@ video::-webkit-media-controls-picture-in-picture-button {
 }
 
 .who-footer p.italic {
-    font-size: 1rem; 
+    font-size: var(--fs-body); 
     font-weight: 400; 
     font-style: italic;
     background: linear-gradient(to right, var(--clr-primary), #00c18e);
@@ -561,16 +656,8 @@ video::-webkit-media-controls-picture-in-picture-button {
     display: inline-block;
 }
 
-/* Hero star + subtitle wrapper */
-.hero-subtitle-wrapper {
-    position: relative;
-    display: inline-block;
-    margin-bottom: var(--spacing-xs);
-}
-
-.hero-star {
-    top: 2px;
-    right: -6px;
+.who-footer .banner-text{
+    font-size: var(--fs-body);
 }
 
 /* Who section star & icons */
@@ -659,13 +746,19 @@ video::-webkit-media-controls-picture-in-picture-button {
    HOW IT WORKS – SLIDER
 ========================= */
 
+#how-it-works .container-70{
+  text-align: center;
+}
+
 #how-it-works {
-  padding-block: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    padding-bottom: var(--spacing-lg);
 }
 
 .how-header {
-  text-align: center;
-  margin-bottom: var(--spacing-md);
+  position: relative;
+  margin-bottom: 0;
+  display: inline-block;
 }
 
 .how-slider {
@@ -675,20 +768,15 @@ video::-webkit-media-controls-picture-in-picture-button {
 
 .how-track {
   display: flex;
+  align-items: stretch;
   transition: transform 0.6s ease;
 }
 
 .how-slide {
   min-width: 100%;
-  padding-inline: clamp(3rem, 10vw, 6rem); /* more left/right margin */
-}
-
-/* Ensure slide 1 content feels centered */
-.how-slide:first-child .how-card {
-  min-height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding-inline: clamp(1.5rem, 10vw, 3rem); /* more left/right margin */
+  padding-bottom: var(--spacing-md);
 }
 
 .how-card {
@@ -697,55 +785,63 @@ video::-webkit-media-controls-picture-in-picture-button {
   border-radius: 0.6rem;
   padding: var(--spacing-md);
   text-align: center;
+  align-items: center;
+  flex: 1;
+  display: flex; /* Makes it a row */
+  flex-direction: row; /* Force side-by-side */
+  gap: var(--spacing-sm);
 }
 
 /* Slide 1 */
-.how-lead {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+.how-body-1 {
+    margin-bottom: 0px;
 }
 
-.how-sub {
-  opacity: 0.9;
-  margin-bottom: var(--spacing-sm);
+/* Visually hidden helper (for figcaption) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
 
-/* Framework figure – single flowing line that wraps */
-.how-framework {
-  display: inline-flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 0.4rem 0.6rem;
-  max-width: 90%;
-  margin-top: var(--spacing-sm);
-  margin-inline: auto;
+/* --- HOW IT WORKS: FRAMEWORK IMAGE --- */
+
+.framework-image-container {
+    width: 100%;
+    max-height: 100%;
+    margin-inline: auto;
+    margin-top: 0;
+    padding-inline: var(--spacing-sm);
 }
 
-.how-framework span {
-  background: rgba(255, 255, 255, 0.12);
-  padding: 0.4rem 0.6rem;
-  border-radius: 0.3rem;
-  font-size: 0.85rem;
-  position: relative;
+.framework-png {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* Optional: If your PNG has a transparent background, this helps visibility */
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1)); 
 }
 
-.how-framework span:not(:last-child)::after {
-  content: "→";
-  margin-left: 0.4rem;
-  color: var(--clr-accent);
-  font-weight: 700;
-  opacity: 0.9;
-}
-
-/* Slide 2 – Unequal columns */
+/* HOW IT WORKS – GLOBAL TWO-COLUMN RULE */
 .how-uneven {
   display: flex;
-  align-items: center;          /* vertically center left/right columns */
+  align-items: center;
   gap: var(--spacing-md);
 }
 
 .how-left {
+  flex: 0 0 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.how-left2 {
   flex: 0 0 35%;
   display: flex;
   flex-direction: column;
@@ -754,23 +850,38 @@ video::-webkit-media-controls-picture-in-picture-button {
 
 .how-right {
   flex: 1;
+  min-width: 0; /* prevents image/text overflow issues */
+}
+
+
+
+@media (max-width: 700px) {
+  .how-framework {
+    justify-content: center;
+  }
+
+  .how-framework .framework-step {
+    white-space: normal;
+  }
 }
 
 .how-eyebrow {
   font-size: var(--fs-body);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--fw-bold);
   opacity: 1;
-  margin-bottom: 0.15rem;       /* tighter above AGILE */
+  margin-bottom: 0;       /* tighter above AGILE */
+  line-height: 1;
 }
 
 .how-agile {
-  font-size: 2rem;
+  font-size: 2.25rem;
   font-weight: 800;
   background: linear-gradient(
-    135deg,
+    125deg,
     var(--clr-accent) 0%,
-    var(--clr-text-light) 45%,
-    var(--clr-text-light) 55%,
+    var(--clr-accent) 30%,
+    var(--clr-text-light) 50%,
+    var(--clr-accent) 70%,
     var(--clr-accent) 100%
   );                             /* tighter white core */
   -webkit-background-clip: text;
@@ -781,8 +892,15 @@ video::-webkit-media-controls-picture-in-picture-button {
 
 .how-body-left {
   text-align: left;
-  max-width: 55ch;
-  margin-inline: auto;
+  max-width: 100%;
+  margin-bottom: 0;
+  margin-left: 15%;
+}
+
+.how-body-left2 {
+    text-align: left;
+    margin-bottom: 0;
+    margin-right: 15%;
 }
 
 /* Mobile */
@@ -798,5 +916,282 @@ video::-webkit-media-controls-picture-in-picture-button {
   }
 }
 
+/* How section star*/
+.how-star {
+    top: 12px;
+    right: -16px;
+    width: 30px;
+    height: 30px;
+    margin-inline: auto;
+    margin-bottom: 0.35rem;
+}
+
+.how-star .star-front {
+    background-color: var(--clr-accent);
+}
+
+.how-star .star-glow {
+    background-color: var(--clr-accent);
+    box-shadow: 
+        0 0 5px 2px rgba(0, 193, 142, 0.9),
+        0 0 10px 4px rgba(0, 193, 142, 0.6),
+        0 0 15px 1px rgba(0, 193, 142, 0.4);
+    transform: scale(0.6);
+}
+
+.slide2-star1 {
+    top: 80px;
+    right: 790px;
+    width: 30px;
+    height: 30px;
+    margin-inline: auto;
+    margin-bottom: 0.35rem;
+}
+
+.slide2-star1 .star-front {
+    background-color: var(--clr-accent);
+}
+
+.slide2-star1 .star-glow {
+    background-color: var(--clr-accent);
+    box-shadow: 
+        0 0 5px 2px rgba(0, 193, 142, 0.9),
+        0 0 10px 4px rgba(0, 193, 142, 0.6),
+        0 0 15px 1px rgba(0, 193, 142, 0.4);
+    transform: scale(0.6);
+}
+
+.slide2-star2 {
+    top: 115px;
+    right: 670px;
+    width: 30px;
+    height: 30px;
+    margin-inline: auto;
+    margin-bottom: 0.35rem;
+}
+
+.slide2-star2 .star-front {
+    background-color: var(--clr-accent);
+}
+
+.slide2-star2 .star-glow {
+    background-color: var(--clr-accent);
+    box-shadow: 
+        0 0 5px 2px rgba(0, 193, 142, 0.9),
+        0 0 10px 4px rgba(0, 193, 142, 0.6),
+        0 0 15px 1px rgba(0, 193, 142, 0.4);
+    transform: scale(0.6);
+}
+
+/* =========================
+   WHAT MAKES US DIFFERENT
+========================= */
+
+#what-makes-us-different {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: var(--clr-bg);
+}
+
+#what-makes-us-different .container-70 {
+    padding-inline: var(--spacing-sm);
+
+}
+
+.wmu-header {
+    position: relative;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Star anchored to H1 */
+.wmu-star {
+    top: 4px;
+    right: -16px;
+    width: 30px;
+    height: 30px;
+}
+
+.wmu-star .star-front {
+    background-color: var(--clr-accent);
+}
+
+.wmu-star .star-glow {
+    background-color: var(--clr-accent);
+    box-shadow:
+        0 0 5px 2px rgba(0, 193, 142, 0.9),
+        0 0 10px 4px rgba(0, 193, 142, 0.6),
+        0 0 15px 1px rgba(0, 193, 142, 0.4);
+    transform: scale(0.6);
+}
+
+/* Shared block style for tabs and panels so borders join cleanly */
+.wmu-block {
+    width: 100%;
+    border: 1px solid var(--clr-text-dark);
+    background-color: var(--clr-bg);
+}
+
+/* Remove double borders between stacked rectangles */
+.wmu-tab + .wmu-tab {
+    border-top: none;
+    border-bottom: none;
+}
+
+/* Accordion wrapper */
+.wmu-accordion {
+    margin-top: var(--spacing-sm);
+}
+
+/* Tab / header rectangles */
+.wmu-tab {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) 1.5rem; /* 1.5rem padding as requested */
+    text-align: left;
+    cursor: pointer;
+    border-radius: 0;
+    color: var(--clr-text-dark);
+    transition: background-color var(--tr-main), color var(--tr-main);
+}
+
+.wmu-tab h2 {
+    margin: 0;
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-regular);
+}
+
+.wmu-tab:hover {
+    background-color: rgba(0, 44, 57, 0.04);
+}
+
+/* Arrow icon */
+.wmu-tab-icon {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1em; /* keeps arrow about 1 line high */
+}
+
+.wmu-tab-icon svg {
+    width: 1em;
+    height: 1em;
+    transition: transform var(--tr-main);
+    transform-origin: center;
+}
+
+/* Base: arrow points to the right (">") */
+.wmu-tab-icon svg {
+    transform: rotate(0deg);
+}
+
+/* Open state: rotate 90deg to point down */
+.wmu-tab.is-open .wmu-tab-icon svg {
+    transform: rotate(90deg);
+}
+
+/* Content rectangles */
+.wmu-panel {
+    border-radius: 0;
+    overflow: hidden;
+
+    margin-left: 5%;
+    width: 95%;
+    margin-top: -1px;
+    margin-bottom: -1px;
+
+    /* animated open/close */
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 1s ease, opacity 1s ease;
+}
+
+.wmu-panel.active {
+    max-height: 600px; 
+    opacity: 1;
+}
+
+/* Indented content via padding-left (per spec) */
+.wmu-panel-inner {
+    padding: var(--spacing-sm) 1.5rem;
+}
+
+/* Staggered delays for the tabs */
+.wmu-tab.reveal:nth-of-type(1) {
+    transition-delay: 0.1s;
+}
+
+.wmu-tab.reveal:nth-of-type(2) {
+    transition-delay: 0.3s;
+}
+
+.wmu-tab.reveal:nth-of-type(3) {
+    transition-delay: 0.5s;
+}
+
+/* Ensure the panels don't use reveal logic, 
+   only the JS 'active' class logic */
+.wmu-panel.reveal {
+    transition-delay: 0s !important;
+    transform: none !important;
+}
+
+/* Mobile: remove indent to save space */
+@media (max-width: 600px) {
+    .wmu-panel-inner {
+        padding-left: 1.5rem;
+    }
+
+    .wmu-tab {
+        align-items: center; /* keeps arrow vertically centered even when text wraps */
+    }
+}
+
+/* The Transition Block */
+.section-transition-gradient {
+    width: 100%;
+    height: 100px; /* Adjust height based on how long you want the fade to be */
+    background: linear-gradient(
+        to bottom,
+        var(--clr-bg) 0%,
+        var(--clr-bg) 10%,
+        var(--clr-accent) 100%
+    );
+}
+
+.section-transition-gradient2 {
+    width: 100%;
+    height: 250px; /* Adjust height based on how long you want the fade to be */
+    background: linear-gradient(
+        to bottom,
+        var(--clr-accent) 0%,
+        var(--clr-secondary) 100%
+    );
+}
+
+/* The Dark Section Below */
+#learning-magic {
+    background: linear-gradient(
+        to bottom,
+        var(--clr-secondary) 0%,
+        var(--clr-primary) 100%
+    );
+    color: var(--clr-text-light);
+    text-align: center;
+    padding-block: var(--spacing-xl);
+}
 
 
+#learning-magic .t-title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: var(--spacing-sm);
+    letter-spacing: 0.05em;
+}
+
+#learning-magic .italic {
+    font-style: italic;
+    opacity: 0.9;
+}

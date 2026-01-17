@@ -12,26 +12,154 @@ console.log("ALPS script loaded successfully.");
 document.addEventListener("DOMContentLoaded", () => {
   const header = document.getElementById("main-header");
 
+  const accordionSection = document.getElementById("what-makes-us-different");
+  const accordionTabs = accordionSection
+    ? accordionSection.querySelectorAll(".wmu-tab")
+    : [];
+  const accordionPanels = accordionSection
+    ? accordionSection.querySelectorAll(".wmu-panel")
+    : [];
+
+  let defaultAccordionOpened = false;
+  let defaultOpenTimeout = null;
+
+  function closeAllAccordionTabs() {
+    accordionTabs.forEach((t) => {
+      t.classList.remove("is-open");
+      t.setAttribute("aria-expanded", "false");
+    });
+
+    accordionPanels.forEach((panel) => {
+      panel.classList.remove("active");
+      panel.setAttribute("aria-hidden", "true");
+    });
+  }
+
+  function openAccordionTab(tab) {
+    if (!tab || !accordionPanels.length) return;
+
+    const targetId = tab.getAttribute("data-panel");
+    const targetPanel = accordionSection.querySelector("#" + targetId);
+
+    // Close all first (so only 1 open at a time)
+    closeAllAccordionTabs();
+
+    // Open target
+    tab.classList.add("is-open");
+    tab.setAttribute("aria-expanded", "true");
+
+    if (targetPanel) {
+      targetPanel.classList.add("active");
+      targetPanel.setAttribute("aria-hidden", "false");
+    }
+  }
+
+
+
   // ---- Reveal (consistent for all sections) ----
   const handleScroll = () => {
     // Header scroll state
     if (window.scrollY > 50) header?.classList.add("scrolled");
     else header?.classList.remove("scrolled");
 
-    // IMPORTANT: query fresh each time so new sections stay consistent
+    // Reveal elements
     const revealElements = document.querySelectorAll(".reveal");
 
     revealElements.forEach((el) => {
       const elementTop = el.getBoundingClientRect().top;
       const windowHeight = window.innerHeight;
 
-      if (elementTop < windowHeight * 0.85) el.classList.add("active");
-      if (elementTop > windowHeight * 0.95 || window.scrollY < 20) el.classList.remove("active");
+      if (elementTop < windowHeight * 0.85) {
+        el.classList.add("active");
+      }
+
+      if (elementTop > windowHeight * 0.85 || window.scrollY < 20) {
+        el.classList.remove("active");
+      }
     });
+
+    // --- Accordion-specific behavior ---
+
+    if (accordionSection && accordionTabs.length > 0) {
+      const rect = accordionSection.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // 1) After tabs fade in, open default tab (first) with a delay
+      if (!defaultAccordionOpened) {
+        const allTabsRevealed = Array.from(accordionTabs).every((tab) =>
+          tab.classList.contains("active")
+        );
+
+        if (allTabsRevealed) {
+          defaultAccordionOpened = true;
+
+          // Clear any previous timeout just in case
+          clearTimeout(defaultOpenTimeout);
+
+          // Reveal animation is 0.8s; add a small buffer
+          defaultOpenTimeout = setTimeout(() => {
+            const r = accordionSection.getBoundingClientRect();
+            const h = window.innerHeight;
+
+            // Make sure section is still in view before opening
+            if (r.top < h && r.bottom > 0) {
+              openAccordionTab(accordionTabs[0]);
+            }
+          }, 850);
+        }
+      } else {
+        // 2) When leaving, close default tab BEFORE disappearing
+        const leaving =
+          rect.top > windowHeight * 0.85 || rect.bottom < 0;
+
+        if (leaving) {
+          closeAllAccordionTabs();  // triggers close animation via CSS
+          defaultAccordionOpened = false;
+          clearTimeout(defaultOpenTimeout);
+        }
+      }
+    }
+    if (!defaultAccordionOpened) {
+    // Select only the tabs within this section
+    const tabs = accordionSection.querySelectorAll(".wmu-tab.reveal");
+    
+    // Check if every individual tab has finished its reveal animation
+    const allTabsRevealed = Array.from(tabs).every((tab) =>
+        tab.classList.contains("active")
+    );
+
+    if (allTabsRevealed) {
+        defaultAccordionOpened = true;
+        clearTimeout(defaultOpenTimeout);
+
+        // Increase delay to 1200ms to account for the staggered entrance
+        defaultOpenTimeout = setTimeout(() => {
+            const r = accordionSection.getBoundingClientRect();
+            if (r.top < window.innerHeight && r.bottom > 0) {
+                openAccordionTab(accordionTabs[0]);
+            }
+        }, 1200); 
+    }
+}
   };
+  
+  
+
 
   window.addEventListener("scroll", handleScroll, { passive: true });
   handleScroll(); // Initialize on load
+
+  // Accordion click behavior: entire rectangle is clickable
+  if (accordionTabs.length > 0) {
+    accordionTabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        // If clicking an already open tab, keep it open (no toggle-to-close)
+        if (!tab.classList.contains("is-open")) {
+          openAccordionTab(tab);
+        }
+      });
+    });
+  }
 
   // ---- Video overlay ----
   const video = document.getElementById("alps-video");
@@ -124,3 +252,4 @@ document.addEventListener("DOMContentLoaded", () => {
     isDragging = false;
   });
 });
+
