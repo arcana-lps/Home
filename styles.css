@@ -48,7 +48,7 @@ input, button, textarea, select {
     --fs-title: 2.75rem;    /* Hero main title */
     --fs-subtitle: 2.25rem; /* Hero sub / Section headers */
     --fs-h1: 1.5rem;                        /* Sub-headings */
-    --fs-h2: 1.25rem;                         /* Small headers/Labels */
+    --fs-h2: 1.15rem;                         /* Small headers/Labels */
     --fs-h3: 1.75rem; 
     --fs-body: 1.15rem;                         /* Standard Paragraphs */
     --fs-small: 1rem;                     /* Captions/Details */
@@ -996,18 +996,23 @@ video::-webkit-media-controls-picture-in-picture-button {
 
 #what-makes-us-different .container-70 {
     padding-inline: var(--spacing-sm);
-
+    text-align: center;
 }
 
 .wmu-header {
     position: relative;
+    display: inline-block;
     margin-bottom: var(--spacing-sm);
+}
+
+.wmu-header .section-heading{
+    text-align: center;
 }
 
 /* Star anchored to H1 */
 .wmu-star {
-    top: 4px;
-    right: -16px;
+    top: 14px;
+    left: -22px;
     width: 30px;
     height: 30px;
 }
