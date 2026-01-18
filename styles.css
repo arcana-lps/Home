@@ -96,9 +96,10 @@ h1 {
 h2 {
     font-family: var(--ff-header);
     font-size: var(--fs-h2);
-    font-weight: var(--fw-regular);
+    font-weight: var(--fw-medium);
     letter-spacing: 0.02em;
     line-height: 1.25;
+    color: var(--clr-secondary);
 }
 
 h3 {
@@ -1054,12 +1055,6 @@ video::-webkit-media-controls-picture-in-picture-button {
     border-radius: 0;
     color: var(--clr-text-dark);
     transition: background-color var(--tr-main), color var(--tr-main);
-}
-
-.wmu-tab h2 {
-    margin: 0;
-    font-size: var(--fs-h2);
-    font-weight: var(--fw-regular);
 }
 
 .wmu-tab:hover {
